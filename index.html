@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes Demo SPA</title>
+</head>
+<body>
+
+<script type="module">
+    import init, {app_request} from './out/notes_demo_spa.js';
+
+    async function start() {
+        await init();
+        await app_request();
+    }
+
+    start();
+</script>
+</body>
+</html>
