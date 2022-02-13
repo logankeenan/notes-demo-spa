@@ -5,15 +5,21 @@
     <title>Notes Demo SPA</title>
 </head>
 <body>
-
 <script type="module">
-    import init, {app_request} from './out/notes_demo_spa.js';
+    import initializeWasm, {app, JsRequest, JsResponse} from '/out/notes_demo_spa.js';
+    import * as jsAdapter from "/node_modules/javascript-adapter/dist/index.js"
 
     async function start() {
-        await init();
-        await app_request();
-    }
+        await initializeWasm();
 
+        jsAdapter.initialize({
+            app,
+            JsRequest,
+            JsResponse
+        });
+        jsAdapter.registerEvents();
+        jsAdapter.pageLoad();
+    }
     start();
 </script>
 </body>
