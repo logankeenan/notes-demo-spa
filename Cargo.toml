@@ -12,7 +12,8 @@ wasm-bindgen = "0.2.79"
 futures = "0.3.19"
 wasm-bindgen-futures = "0.4.29"
 tide = { git = "https://github.com/logankeenan/tide.git", branch = "wasm", features = ["wasm"], default-features = false }
-#notes-demo = { git = "https://github.com/rora-rs/note-demo", branch = "main" }
-notes-demo = { path = "../notes-demo" }
+notes-demo = { git = "https://github.com/rora-rs/note-demo", branch = "main" }
+#notes-demo = { path = "../notes-demo" }
 surf = { version = "2.3.2", default-features = false, features = ["wasm-client"] }
-javascript-adapter = { path = "../javascript-adapter", version = "0.1.0" }
+#javascript-adapter = { path = "../javascript-adapter", version = "0.1.0" }
+javascript-adapter = { git = "https://github.com/rora-rs/javascript-adapter.git", branch = "main" }

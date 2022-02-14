@@ -1,0 +1,22 @@
+{
+  "name": "notes-demo-spa",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rora-rs/notes-demo-spa.git"
+  },
+  "author": "Logan Keenan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rora-rs/notes-demo-spa/issues"
+  },
+  "homepage": "https://github.com/rora-rs/notes-demo-spa#readme",
+  "dependencies": {
+    "@rora/javascript-adapter": "^0.0.2"
+  }
+}
