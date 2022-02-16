@@ -5,6 +5,9 @@ use wasm_bindgen::prelude::*;
 pub use javascript_adapter::{JsRequest, JsResponse};
 use tide::{Body, Middleware, Next, Request, Response};
 
+#[macro_use]
+extern crate dotenv_codegen;
+
 #[wasm_bindgen]
 extern "C" {
     #[wasm_bindgen(js_namespace = console)]
@@ -85,7 +88,7 @@ const HTML_INJECTION: &str = r#"
 #[wasm_bindgen]
 pub async fn app(js_request: JsRequest) -> JsResponse {
     let mut app_state = AppState::new();
-    app_state.environment.insert(String::from("API_ORIGIN"), String::from("http://localhost:3000"));
+    app_state.environment.insert(String::from("API_ORIGIN"), dotenv!("API_ORIGIN").to_string());
     let mut app = notes_demo::create(app_state);
     app.with(HtmlInjection { content: HTML_INJECTION });
 

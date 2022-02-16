@@ -2,3 +2,4 @@
 Cargo.lock
 out
 node_modules
+.env
