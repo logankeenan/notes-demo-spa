@@ -5,22 +5,12 @@
     <title>Notes Demo SPA</title>
 </head>
 <body>
-<script type="module">
-    import initializeWasm, {app, JsRequest, JsResponse} from '/out/notes_demo_spa.js';
-    import * as jsAdapter from "/node_modules/@rora/javascript-adapter/dist/index.js"
-
-    async function start() {
-        await initializeWasm();
-
-        jsAdapter.initialize({
-            app,
-            JsRequest,
-            JsResponse
-        });
-        jsAdapter.registerEvents();
-        jsAdapter.pageLoad();
-    }
-    start();
-</script>
 </body>
+<script src="/dist/bundle.js"></script>
+<script>
+    (async () => {
+        await window.rora.javascriptAdapter.initialize();
+        window.rora.javascriptAdapter.pageLoad();
+    })();
+</script>
 </html>

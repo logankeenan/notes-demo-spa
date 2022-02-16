@@ -66,21 +66,11 @@ impl<State: Clone + Send + Sync + 'static> Middleware<State> for HtmlInjection {
 }
 
 const HTML_INJECTION: &str = r#"
-<script type='module'>
-  import initializeWasm, {app, JsRequest, JsResponse} from '/out/notes_demo_spa.js';
-  import * as jsAdapter from '/node_modules/@rora/javascript-adapter/dist/index.js'
-
-  async function start() {
-    await initializeWasm();
-
-    jsAdapter.initialize({
-      app,
-      JsRequest,
-      JsResponse
-    });
-    jsAdapter.registerEvents();
-  }
-  start();
+<script src="/dist/bundle.js"></script>
+<script>
+    (async () => {
+        await window.rora.javascriptAdapter.initialize();
+    })();
 </script>
 "#;
 

@@ -18,3 +18,7 @@ surf = { version = "2.3.2", default-features = false, features = ["wasm-client"]
 #javascript-adapter = { path = "../javascript-adapter", version = "0.1.0" }
 javascript-adapter = { git = "https://github.com/rora-rs/javascript-adapter.git", branch = "main" }
 dotenv_codegen = "0.15.0"
+
+[profile.release]
+opt-level = "z"  # Optimize for size.
+lto = true

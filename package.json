@@ -4,6 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": ". ./scripts/debug.sh && node esbuild.config.js",
+    "build:wasm:release": ". ./scripts/release.sh",
+    "build:release": ". ./scripts/release.sh && node esbuild.config.js",
+    "dev": "cargo-watch -w ./src -s 'npm run build'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +22,8 @@
   "homepage": "https://github.com/rora-rs/notes-demo-spa#readme",
   "dependencies": {
     "@rora/javascript-adapter": "^0.0.2"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.21"
   }
 }
