@@ -66,11 +66,8 @@ impl<State: Clone + Send + Sync + 'static> Middleware<State> for HtmlInjection {
 }
 
 const HTML_INJECTION: &str = r#"
-<script src="/dist/bundle.js"></script>
 <script>
-    (async () => {
-        await window.rora.javascriptAdapter.initialize();
-    })();
+window.roraAdapter.pageLoaded();
 </script>
 "#;
 
