@@ -15,10 +15,10 @@ tide = { git = "https://github.com/logankeenan/tide.git", branch = "wasm", featu
 notes-demo = { git = "https://github.com/rora-rs/note-demo", branch = "main" }
 #notes-demo = { path = "../notes-demo" }
 surf = { version = "2.3.2", default-features = false, features = ["wasm-client"] }
-#javascript-adapter = { path = "../javascript-adapter", version = "0.1.0" }
-javascript-adapter = { git = "https://github.com/rora-rs/javascript-adapter.git", branch = "main" }
+#rora-javascript-adapter = { path = "../rora-javascript-adapter" }
+rora-javascript-adapter = "0.0.1"
 #tide-adapter = { path = "../tide-adapter"}
-tide-adapter = { git = "https://github.com/rora-rs/tide-adapter.git", branch = "main" }
+rora-tide-adapter = { git = "https://github.com/rora-rs/tide-adapter.git", branch = "main" }
 dotenv_codegen = "0.15.0"
 
 [profile.release]

@@ -1,9 +1,9 @@
 use notes_demo::AppState;
 use tide::http::{Request as TideRequest, Response as TideResponse};
 use wasm_bindgen::prelude::*;
-pub use javascript_adapter::{JsRequest, JsResponse};
+pub use rora_javascript_adapter::{JsRequest, JsResponse};
 use tide::{Body, Middleware, Next, Request, Response};
-use tide_adapter::javascript;
+use rora_tide_adapter::javascript;
 
 #[macro_use]
 extern crate dotenv_codegen;
