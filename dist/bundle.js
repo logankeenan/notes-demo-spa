@@ -889,7 +889,7 @@ ${val.stack}`;
 
   // src/index.js
   (async () => {
-    const url = new URL("dist/wasm/notes_demo_spa_bg.wasm", window.location.href);
+    const url = new URL("/dist/wasm/notes_demo_spa_bg.wasm", window.location.href);
     await notes_demo_spa_default(url);
     window.roraAdapter = Ce({
       app,
