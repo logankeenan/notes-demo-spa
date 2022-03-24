@@ -58,7 +58,7 @@ export class JsRequest {
 /**
 * @returns {string}
 */
-  readonly body: string;
+  body: string;
 /**
 * @returns {any}
 */
@@ -134,6 +134,7 @@ export interface InitOutput {
   readonly jsrequest_uri: (a: number, b: number) => void;
   readonly jsrequest_method: (a: number, b: number) => void;
   readonly jsrequest_body: (a: number, b: number) => void;
+  readonly jsrequest_set_body: (a: number, b: number, c: number) => void;
   readonly jsrequest_headers: (a: number) => number;
   readonly jsrequest_headers_append: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly __wbg_jsresponse_free: (a: number) => void;

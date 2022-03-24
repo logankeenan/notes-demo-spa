@@ -7,6 +7,7 @@ export function jsrequest_new(a: number, b: number, c: number, d: number): numbe
 export function jsrequest_uri(a: number, b: number): void;
 export function jsrequest_method(a: number, b: number): void;
 export function jsrequest_body(a: number, b: number): void;
+export function jsrequest_set_body(a: number, b: number, c: number): void;
 export function jsrequest_headers(a: number): number;
 export function jsrequest_headers_append(a: number, b: number, c: number, d: number, e: number): void;
 export function __wbg_jsresponse_free(a: number): void;

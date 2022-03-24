@@ -137,7 +137,7 @@
     if (className == "Object") {
       try {
         return "Object(" + JSON.stringify(val) + ")";
-      } catch (_2) {
+      } catch (_) {
         return "Object";
       }
     }
@@ -260,6 +260,11 @@ ${val.stack}`;
         wasm.__wbindgen_add_to_stack_pointer(16);
         wasm.__wbindgen_free(r0, r1);
       }
+    }
+    set body(body) {
+      var ptr0 = passStringToWasm0(body, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+      var len0 = WASM_VECTOR_LEN;
+      wasm.jsrequest_set_body(this.ptr, ptr0, len0);
     }
     get headers() {
       var ret = wasm.jsrequest_headers(this.ptr);
@@ -609,11 +614,11 @@ ${val.stack}`;
       var ret = Promise.resolve(getObject(arg0));
       return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper404 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper402 = function(arg0, arg1, arg2) {
       var ret = makeMutClosure(arg0, arg1, 17, __wbg_adapter_26);
       return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper2623 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper2626 = function(arg0, arg1, arg2) {
       var ret = makeMutClosure(arg0, arg1, 76, __wbg_adapter_29);
       return addHeapObject(ret);
     };
@@ -627,271 +632,570 @@ ${val.stack}`;
   }
   var notes_demo_spa_default = init;
 
-  // node_modules/@rora/javascript-adapter/dist/index.js
-  var z = 11;
-  function ue(e, a) {
-    var t = a.attributes, n, r, s, l, A;
-    if (!(a.nodeType === z || e.nodeType === z)) {
-      for (var S = t.length - 1; S >= 0; S--)
-        n = t[S], r = n.name, s = n.namespaceURI, l = n.value, s ? (r = n.localName || r, A = e.getAttributeNS(s, r), A !== l && (n.prefix === "xmlns" && (r = n.name), e.setAttributeNS(s, r, l))) : (A = e.getAttribute(r), A !== l && e.setAttribute(r, l));
-      for (var x = e.attributes, w = x.length - 1; w >= 0; w--)
-        n = x[w], r = n.name, s = n.namespaceURI, s ? (r = n.localName || r, a.hasAttributeNS(s, r) || e.removeAttributeNS(s, r)) : a.hasAttribute(r) || e.removeAttribute(r);
+  // ../javascript-adapter/dist/index.js
+  var DOCUMENT_FRAGMENT_NODE = 11;
+  function morphAttrs(fromNode, toNode) {
+    var toNodeAttrs = toNode.attributes;
+    var attr;
+    var attrName;
+    var attrNamespaceURI;
+    var attrValue;
+    var fromValue;
+    if (toNode.nodeType === DOCUMENT_FRAGMENT_NODE || fromNode.nodeType === DOCUMENT_FRAGMENT_NODE) {
+      return;
     }
-  }
-  var _;
-  var fe = "http://www.w3.org/1999/xhtml";
-  var o = typeof document > "u" ? void 0 : document;
-  var se = !!o && "content" in o.createElement("template");
-  var le = !!o && o.createRange && "createContextualFragment" in o.createRange();
-  function ce(e) {
-    var a = o.createElement("template");
-    return a.innerHTML = e, a.content.childNodes[0];
-  }
-  function oe(e) {
-    _ || (_ = o.createRange(), _.selectNode(o.body));
-    var a = _.createContextualFragment(e);
-    return a.childNodes[0];
-  }
-  function ve(e) {
-    var a = o.createElement("body");
-    return a.innerHTML = e, a.childNodes[0];
-  }
-  function pe(e) {
-    return e = e.trim(), se ? ce(e) : le ? oe(e) : ve(e);
-  }
-  function B(e, a) {
-    var t = e.nodeName, n = a.nodeName, r, s;
-    return t === n ? true : (r = t.charCodeAt(0), s = n.charCodeAt(0), r <= 90 && s >= 97 ? t === n.toUpperCase() : s <= 90 && r >= 97 ? n === t.toUpperCase() : false);
-  }
-  function he(e, a) {
-    return !a || a === fe ? o.createElement(e) : o.createElementNS(a, e);
-  }
-  function ge(e, a) {
-    for (var t = e.firstChild; t; ) {
-      var n = t.nextSibling;
-      a.appendChild(t), t = n;
-    }
-    return a;
-  }
-  function j(e, a, t) {
-    e[t] !== a[t] && (e[t] = a[t], e[t] ? e.setAttribute(t, "") : e.removeAttribute(t));
-  }
-  var J = { OPTION: function(e, a) {
-    var t = e.parentNode;
-    if (t) {
-      var n = t.nodeName.toUpperCase();
-      n === "OPTGROUP" && (t = t.parentNode, n = t && t.nodeName.toUpperCase()), n === "SELECT" && !t.hasAttribute("multiple") && (e.hasAttribute("selected") && !a.selected && (e.setAttribute("selected", "selected"), e.removeAttribute("selected")), t.selectedIndex = -1);
-    }
-    j(e, a, "selected");
-  }, INPUT: function(e, a) {
-    j(e, a, "checked"), j(e, a, "disabled"), e.value !== a.value && (e.value = a.value), a.hasAttribute("value") || e.removeAttribute("value");
-  }, TEXTAREA: function(e, a) {
-    var t = a.value;
-    e.value !== t && (e.value = t);
-    var n = e.firstChild;
-    if (n) {
-      var r = n.nodeValue;
-      if (r == t || !t && r == e.placeholder)
-        return;
-      n.nodeValue = t;
-    }
-  }, SELECT: function(e, a) {
-    if (!a.hasAttribute("multiple")) {
-      for (var t = -1, n = 0, r = e.firstChild, s, l; r; )
-        if (l = r.nodeName && r.nodeName.toUpperCase(), l === "OPTGROUP")
-          s = r, r = s.firstChild;
-        else {
-          if (l === "OPTION") {
-            if (r.hasAttribute("selected")) {
-              t = n;
-              break;
-            }
-            n++;
+    for (var i = toNodeAttrs.length - 1; i >= 0; i--) {
+      attr = toNodeAttrs[i];
+      attrName = attr.name;
+      attrNamespaceURI = attr.namespaceURI;
+      attrValue = attr.value;
+      if (attrNamespaceURI) {
+        attrName = attr.localName || attrName;
+        fromValue = fromNode.getAttributeNS(attrNamespaceURI, attrName);
+        if (fromValue !== attrValue) {
+          if (attr.prefix === "xmlns") {
+            attrName = attr.name;
           }
-          r = r.nextSibling, !r && s && (r = s.nextSibling, s = null);
+          fromNode.setAttributeNS(attrNamespaceURI, attrName, attrValue);
         }
-      e.selectedIndex = t;
-    }
-  } };
-  var y = 1;
-  var Te = 11;
-  var W = 3;
-  var $ = 8;
-  function T() {
-  }
-  function Ae(e) {
-    if (e)
-      return e.getAttribute && e.getAttribute("id") || e.id;
-  }
-  function me(e) {
-    return function(t, n, r) {
-      if (r || (r = {}), typeof n == "string")
-        if (t.nodeName === "#document" || t.nodeName === "HTML" || t.nodeName === "BODY") {
-          var s = n;
-          n = o.createElement("html"), n.innerHTML = s;
-        } else
-          n = pe(n);
-      var l = r.getNodeKey || Ae, A = r.onBeforeNodeAdded || T, S = r.onNodeAdded || T, x = r.onBeforeElUpdated || T, w = r.onElUpdated || T, ae = r.onBeforeNodeDiscarded || T, U = r.onNodeDiscarded || T, ne = r.onBeforeElChildrenUpdated || T, M = r.childrenOnly === true, m = /* @__PURE__ */ Object.create(null), O = [];
-      function D(u) {
-        O.push(u);
-      }
-      function k(u, d) {
-        if (u.nodeType === y)
-          for (var i = u.firstChild; i; ) {
-            var f = void 0;
-            d && (f = l(i)) ? D(f) : (U(i), i.firstChild && k(i, d)), i = i.nextSibling;
-          }
-      }
-      function P(u, d, i) {
-        ae(u) !== false && (d && d.removeChild(u), U(u), k(u, i));
-      }
-      function F(u) {
-        if (u.nodeType === y || u.nodeType === Te)
-          for (var d = u.firstChild; d; ) {
-            var i = l(d);
-            i && (m[i] = d), F(d), d = d.nextSibling;
-          }
-      }
-      F(t);
-      function H(u) {
-        S(u);
-        for (var d = u.firstChild; d; ) {
-          var i = d.nextSibling, f = l(d);
-          if (f) {
-            var v = m[f];
-            v && B(d, v) ? (d.parentNode.replaceChild(v, d), C(v, d)) : H(d);
-          } else
-            H(d);
-          d = i;
+      } else {
+        fromValue = fromNode.getAttribute(attrName);
+        if (fromValue !== attrValue) {
+          fromNode.setAttribute(attrName, attrValue);
         }
       }
-      function re(u, d, i) {
-        for (; d; ) {
-          var f = d.nextSibling;
-          (i = l(d)) ? D(i) : P(d, u, true), d = f;
+    }
+    var fromNodeAttrs = fromNode.attributes;
+    for (var d = fromNodeAttrs.length - 1; d >= 0; d--) {
+      attr = fromNodeAttrs[d];
+      attrName = attr.name;
+      attrNamespaceURI = attr.namespaceURI;
+      if (attrNamespaceURI) {
+        attrName = attr.localName || attrName;
+        if (!toNode.hasAttributeNS(attrNamespaceURI, attrName)) {
+          fromNode.removeAttributeNS(attrNamespaceURI, attrName);
+        }
+      } else {
+        if (!toNode.hasAttribute(attrName)) {
+          fromNode.removeAttribute(attrName);
         }
       }
-      function C(u, d, i) {
-        var f = l(d);
-        f && delete m[f], !(!i && (x(u, d) === false || (e(u, d), w(u), ne(u, d) === false))) && (u.nodeName !== "TEXTAREA" ? ie(u, d) : J.TEXTAREA(u, d));
+    }
+  }
+  var range;
+  var NS_XHTML = "http://www.w3.org/1999/xhtml";
+  var doc = typeof document === "undefined" ? void 0 : document;
+  var HAS_TEMPLATE_SUPPORT = !!doc && "content" in doc.createElement("template");
+  var HAS_RANGE_SUPPORT = !!doc && doc.createRange && "createContextualFragment" in doc.createRange();
+  function createFragmentFromTemplate(str) {
+    var template = doc.createElement("template");
+    template.innerHTML = str;
+    return template.content.childNodes[0];
+  }
+  function createFragmentFromRange(str) {
+    if (!range) {
+      range = doc.createRange();
+      range.selectNode(doc.body);
+    }
+    var fragment = range.createContextualFragment(str);
+    return fragment.childNodes[0];
+  }
+  function createFragmentFromWrap(str) {
+    var fragment = doc.createElement("body");
+    fragment.innerHTML = str;
+    return fragment.childNodes[0];
+  }
+  function toElement(str) {
+    str = str.trim();
+    if (HAS_TEMPLATE_SUPPORT) {
+      return createFragmentFromTemplate(str);
+    } else if (HAS_RANGE_SUPPORT) {
+      return createFragmentFromRange(str);
+    }
+    return createFragmentFromWrap(str);
+  }
+  function compareNodeNames(fromEl, toEl) {
+    var fromNodeName = fromEl.nodeName;
+    var toNodeName = toEl.nodeName;
+    var fromCodeStart, toCodeStart;
+    if (fromNodeName === toNodeName) {
+      return true;
+    }
+    fromCodeStart = fromNodeName.charCodeAt(0);
+    toCodeStart = toNodeName.charCodeAt(0);
+    if (fromCodeStart <= 90 && toCodeStart >= 97) {
+      return fromNodeName === toNodeName.toUpperCase();
+    } else if (toCodeStart <= 90 && fromCodeStart >= 97) {
+      return toNodeName === fromNodeName.toUpperCase();
+    } else {
+      return false;
+    }
+  }
+  function createElementNS(name, namespaceURI) {
+    return !namespaceURI || namespaceURI === NS_XHTML ? doc.createElement(name) : doc.createElementNS(namespaceURI, name);
+  }
+  function moveChildren(fromEl, toEl) {
+    var curChild = fromEl.firstChild;
+    while (curChild) {
+      var nextChild = curChild.nextSibling;
+      toEl.appendChild(curChild);
+      curChild = nextChild;
+    }
+    return toEl;
+  }
+  function syncBooleanAttrProp(fromEl, toEl, name) {
+    if (fromEl[name] !== toEl[name]) {
+      fromEl[name] = toEl[name];
+      if (fromEl[name]) {
+        fromEl.setAttribute(name, "");
+      } else {
+        fromEl.removeAttribute(name);
       }
-      function ie(u, d) {
-        var i = d.firstChild, f = u.firstChild, v, p, b, E, h;
-        e:
-          for (; i; ) {
-            for (E = i.nextSibling, v = l(i); f; ) {
-              if (b = f.nextSibling, i.isSameNode && i.isSameNode(f)) {
-                i = E, f = b;
-                continue e;
-              }
-              p = l(f);
-              var V = f.nodeType, g = void 0;
-              if (V === i.nodeType && (V === y ? (v ? v !== p && ((h = m[v]) ? b === h ? g = false : (u.insertBefore(h, f), p ? D(p) : P(f, u, true), f = h) : g = false) : p && (g = false), g = g !== false && B(f, i), g && C(f, i)) : (V === W || V == $) && (g = true, f.nodeValue !== i.nodeValue && (f.nodeValue = i.nodeValue))), g) {
-                i = E, f = b;
-                continue e;
-              }
-              p ? D(p) : P(f, u, true), f = b;
-            }
-            if (v && (h = m[v]) && B(h, i))
-              u.appendChild(h), C(h, i);
-            else {
-              var q = A(i);
-              q !== false && (q && (i = q), i.actualize && (i = i.actualize(u.ownerDocument || o)), u.appendChild(i), H(i));
-            }
-            i = E, f = b;
+    }
+  }
+  var specialElHandlers = {
+    OPTION: function(fromEl, toEl) {
+      var parentNode = fromEl.parentNode;
+      if (parentNode) {
+        var parentName = parentNode.nodeName.toUpperCase();
+        if (parentName === "OPTGROUP") {
+          parentNode = parentNode.parentNode;
+          parentName = parentNode && parentNode.nodeName.toUpperCase();
+        }
+        if (parentName === "SELECT" && !parentNode.hasAttribute("multiple")) {
+          if (fromEl.hasAttribute("selected") && !toEl.selected) {
+            fromEl.setAttribute("selected", "selected");
+            fromEl.removeAttribute("selected");
           }
-        re(u, f, p);
-        var X = J[u.nodeName];
-        X && X(u, d);
-      }
-      var c = t, L = c.nodeType, K = n.nodeType;
-      if (!M) {
-        if (L === y)
-          K === y ? B(t, n) || (U(t), c = ge(t, he(n.nodeName, n.namespaceURI))) : c = n;
-        else if (L === W || L === $) {
-          if (K === L)
-            return c.nodeValue !== n.nodeValue && (c.nodeValue = n.nodeValue), c;
-          c = n;
+          parentNode.selectedIndex = -1;
         }
       }
-      if (c === n)
-        U(t);
-      else {
-        if (n.isSameNode && n.isSameNode(c))
+      syncBooleanAttrProp(fromEl, toEl, "selected");
+    },
+    INPUT: function(fromEl, toEl) {
+      syncBooleanAttrProp(fromEl, toEl, "checked");
+      syncBooleanAttrProp(fromEl, toEl, "disabled");
+      if (fromEl.value !== toEl.value) {
+        fromEl.value = toEl.value;
+      }
+      if (!toEl.hasAttribute("value")) {
+        fromEl.removeAttribute("value");
+      }
+    },
+    TEXTAREA: function(fromEl, toEl) {
+      var newValue = toEl.value;
+      if (fromEl.value !== newValue) {
+        fromEl.value = newValue;
+      }
+      var firstChild = fromEl.firstChild;
+      if (firstChild) {
+        var oldValue = firstChild.nodeValue;
+        if (oldValue == newValue || !newValue && oldValue == fromEl.placeholder) {
           return;
-        if (C(c, n, M), O)
-          for (var G = 0, de = O.length; G < de; G++) {
-            var I = m[O[G]];
-            I && P(I, I.parentNode, false);
-          }
+        }
+        firstChild.nodeValue = newValue;
       }
-      return !M && c !== t && t.parentNode && (c.actualize && (c = c.actualize(t.ownerDocument || o)), t.parentNode.replaceChild(c, t)), c;
+    },
+    SELECT: function(fromEl, toEl) {
+      if (!toEl.hasAttribute("multiple")) {
+        var selectedIndex = -1;
+        var i = 0;
+        var curChild = fromEl.firstChild;
+        var optgroup;
+        var nodeName;
+        while (curChild) {
+          nodeName = curChild.nodeName && curChild.nodeName.toUpperCase();
+          if (nodeName === "OPTGROUP") {
+            optgroup = curChild;
+            curChild = optgroup.firstChild;
+          } else {
+            if (nodeName === "OPTION") {
+              if (curChild.hasAttribute("selected")) {
+                selectedIndex = i;
+                break;
+              }
+              i++;
+            }
+            curChild = curChild.nextSibling;
+            if (!curChild && optgroup) {
+              curChild = optgroup.nextSibling;
+              optgroup = null;
+            }
+          }
+        }
+        fromEl.selectedIndex = selectedIndex;
+      }
+    }
+  };
+  var ELEMENT_NODE = 1;
+  var DOCUMENT_FRAGMENT_NODE$1 = 11;
+  var TEXT_NODE = 3;
+  var COMMENT_NODE = 8;
+  function noop() {
+  }
+  function defaultGetNodeKey(node) {
+    if (node) {
+      return node.getAttribute && node.getAttribute("id") || node.id;
+    }
+  }
+  function morphdomFactory(morphAttrs2) {
+    return function morphdom2(fromNode, toNode, options) {
+      if (!options) {
+        options = {};
+      }
+      if (typeof toNode === "string") {
+        if (fromNode.nodeName === "#document" || fromNode.nodeName === "HTML" || fromNode.nodeName === "BODY") {
+          var toNodeHtml = toNode;
+          toNode = doc.createElement("html");
+          toNode.innerHTML = toNodeHtml;
+        } else {
+          toNode = toElement(toNode);
+        }
+      }
+      var getNodeKey = options.getNodeKey || defaultGetNodeKey;
+      var onBeforeNodeAdded = options.onBeforeNodeAdded || noop;
+      var onNodeAdded2 = options.onNodeAdded || noop;
+      var onBeforeElUpdated2 = options.onBeforeElUpdated || noop;
+      var onElUpdated = options.onElUpdated || noop;
+      var onBeforeNodeDiscarded = options.onBeforeNodeDiscarded || noop;
+      var onNodeDiscarded = options.onNodeDiscarded || noop;
+      var onBeforeElChildrenUpdated = options.onBeforeElChildrenUpdated || noop;
+      var childrenOnly = options.childrenOnly === true;
+      var fromNodesLookup = /* @__PURE__ */ Object.create(null);
+      var keyedRemovalList = [];
+      function addKeyedRemoval(key) {
+        keyedRemovalList.push(key);
+      }
+      function walkDiscardedChildNodes(node, skipKeyedNodes) {
+        if (node.nodeType === ELEMENT_NODE) {
+          var curChild = node.firstChild;
+          while (curChild) {
+            var key = void 0;
+            if (skipKeyedNodes && (key = getNodeKey(curChild))) {
+              addKeyedRemoval(key);
+            } else {
+              onNodeDiscarded(curChild);
+              if (curChild.firstChild) {
+                walkDiscardedChildNodes(curChild, skipKeyedNodes);
+              }
+            }
+            curChild = curChild.nextSibling;
+          }
+        }
+      }
+      function removeNode(node, parentNode, skipKeyedNodes) {
+        if (onBeforeNodeDiscarded(node) === false) {
+          return;
+        }
+        if (parentNode) {
+          parentNode.removeChild(node);
+        }
+        onNodeDiscarded(node);
+        walkDiscardedChildNodes(node, skipKeyedNodes);
+      }
+      function indexTree(node) {
+        if (node.nodeType === ELEMENT_NODE || node.nodeType === DOCUMENT_FRAGMENT_NODE$1) {
+          var curChild = node.firstChild;
+          while (curChild) {
+            var key = getNodeKey(curChild);
+            if (key) {
+              fromNodesLookup[key] = curChild;
+            }
+            indexTree(curChild);
+            curChild = curChild.nextSibling;
+          }
+        }
+      }
+      indexTree(fromNode);
+      function handleNodeAdded(el) {
+        onNodeAdded2(el);
+        var curChild = el.firstChild;
+        while (curChild) {
+          var nextSibling = curChild.nextSibling;
+          var key = getNodeKey(curChild);
+          if (key) {
+            var unmatchedFromEl = fromNodesLookup[key];
+            if (unmatchedFromEl && compareNodeNames(curChild, unmatchedFromEl)) {
+              curChild.parentNode.replaceChild(unmatchedFromEl, curChild);
+              morphEl(unmatchedFromEl, curChild);
+            } else {
+              handleNodeAdded(curChild);
+            }
+          } else {
+            handleNodeAdded(curChild);
+          }
+          curChild = nextSibling;
+        }
+      }
+      function cleanupFromEl(fromEl, curFromNodeChild, curFromNodeKey) {
+        while (curFromNodeChild) {
+          var fromNextSibling = curFromNodeChild.nextSibling;
+          if (curFromNodeKey = getNodeKey(curFromNodeChild)) {
+            addKeyedRemoval(curFromNodeKey);
+          } else {
+            removeNode(curFromNodeChild, fromEl, true);
+          }
+          curFromNodeChild = fromNextSibling;
+        }
+      }
+      function morphEl(fromEl, toEl, childrenOnly2) {
+        var toElKey = getNodeKey(toEl);
+        if (toElKey) {
+          delete fromNodesLookup[toElKey];
+        }
+        if (!childrenOnly2) {
+          if (onBeforeElUpdated2(fromEl, toEl) === false) {
+            return;
+          }
+          morphAttrs2(fromEl, toEl);
+          onElUpdated(fromEl);
+          if (onBeforeElChildrenUpdated(fromEl, toEl) === false) {
+            return;
+          }
+        }
+        if (fromEl.nodeName !== "TEXTAREA") {
+          morphChildren(fromEl, toEl);
+        } else {
+          specialElHandlers.TEXTAREA(fromEl, toEl);
+        }
+      }
+      function morphChildren(fromEl, toEl) {
+        var curToNodeChild = toEl.firstChild;
+        var curFromNodeChild = fromEl.firstChild;
+        var curToNodeKey;
+        var curFromNodeKey;
+        var fromNextSibling;
+        var toNextSibling;
+        var matchingFromEl;
+        outer:
+          while (curToNodeChild) {
+            toNextSibling = curToNodeChild.nextSibling;
+            curToNodeKey = getNodeKey(curToNodeChild);
+            while (curFromNodeChild) {
+              fromNextSibling = curFromNodeChild.nextSibling;
+              if (curToNodeChild.isSameNode && curToNodeChild.isSameNode(curFromNodeChild)) {
+                curToNodeChild = toNextSibling;
+                curFromNodeChild = fromNextSibling;
+                continue outer;
+              }
+              curFromNodeKey = getNodeKey(curFromNodeChild);
+              var curFromNodeType = curFromNodeChild.nodeType;
+              var isCompatible = void 0;
+              if (curFromNodeType === curToNodeChild.nodeType) {
+                if (curFromNodeType === ELEMENT_NODE) {
+                  if (curToNodeKey) {
+                    if (curToNodeKey !== curFromNodeKey) {
+                      if (matchingFromEl = fromNodesLookup[curToNodeKey]) {
+                        if (fromNextSibling === matchingFromEl) {
+                          isCompatible = false;
+                        } else {
+                          fromEl.insertBefore(matchingFromEl, curFromNodeChild);
+                          if (curFromNodeKey) {
+                            addKeyedRemoval(curFromNodeKey);
+                          } else {
+                            removeNode(curFromNodeChild, fromEl, true);
+                          }
+                          curFromNodeChild = matchingFromEl;
+                        }
+                      } else {
+                        isCompatible = false;
+                      }
+                    }
+                  } else if (curFromNodeKey) {
+                    isCompatible = false;
+                  }
+                  isCompatible = isCompatible !== false && compareNodeNames(curFromNodeChild, curToNodeChild);
+                  if (isCompatible) {
+                    morphEl(curFromNodeChild, curToNodeChild);
+                  }
+                } else if (curFromNodeType === TEXT_NODE || curFromNodeType == COMMENT_NODE) {
+                  isCompatible = true;
+                  if (curFromNodeChild.nodeValue !== curToNodeChild.nodeValue) {
+                    curFromNodeChild.nodeValue = curToNodeChild.nodeValue;
+                  }
+                }
+              }
+              if (isCompatible) {
+                curToNodeChild = toNextSibling;
+                curFromNodeChild = fromNextSibling;
+                continue outer;
+              }
+              if (curFromNodeKey) {
+                addKeyedRemoval(curFromNodeKey);
+              } else {
+                removeNode(curFromNodeChild, fromEl, true);
+              }
+              curFromNodeChild = fromNextSibling;
+            }
+            if (curToNodeKey && (matchingFromEl = fromNodesLookup[curToNodeKey]) && compareNodeNames(matchingFromEl, curToNodeChild)) {
+              fromEl.appendChild(matchingFromEl);
+              morphEl(matchingFromEl, curToNodeChild);
+            } else {
+              var onBeforeNodeAddedResult = onBeforeNodeAdded(curToNodeChild);
+              if (onBeforeNodeAddedResult !== false) {
+                if (onBeforeNodeAddedResult) {
+                  curToNodeChild = onBeforeNodeAddedResult;
+                }
+                if (curToNodeChild.actualize) {
+                  curToNodeChild = curToNodeChild.actualize(fromEl.ownerDocument || doc);
+                }
+                fromEl.appendChild(curToNodeChild);
+                handleNodeAdded(curToNodeChild);
+              }
+            }
+            curToNodeChild = toNextSibling;
+            curFromNodeChild = fromNextSibling;
+          }
+        cleanupFromEl(fromEl, curFromNodeChild, curFromNodeKey);
+        var specialElHandler = specialElHandlers[fromEl.nodeName];
+        if (specialElHandler) {
+          specialElHandler(fromEl, toEl);
+        }
+      }
+      var morphedNode = fromNode;
+      var morphedNodeType = morphedNode.nodeType;
+      var toNodeType = toNode.nodeType;
+      if (!childrenOnly) {
+        if (morphedNodeType === ELEMENT_NODE) {
+          if (toNodeType === ELEMENT_NODE) {
+            if (!compareNodeNames(fromNode, toNode)) {
+              onNodeDiscarded(fromNode);
+              morphedNode = moveChildren(fromNode, createElementNS(toNode.nodeName, toNode.namespaceURI));
+            }
+          } else {
+            morphedNode = toNode;
+          }
+        } else if (morphedNodeType === TEXT_NODE || morphedNodeType === COMMENT_NODE) {
+          if (toNodeType === morphedNodeType) {
+            if (morphedNode.nodeValue !== toNode.nodeValue) {
+              morphedNode.nodeValue = toNode.nodeValue;
+            }
+            return morphedNode;
+          } else {
+            morphedNode = toNode;
+          }
+        }
+      }
+      if (morphedNode === toNode) {
+        onNodeDiscarded(fromNode);
+      } else {
+        if (toNode.isSameNode && toNode.isSameNode(morphedNode)) {
+          return;
+        }
+        morphEl(morphedNode, toNode, childrenOnly);
+        if (keyedRemovalList) {
+          for (var i = 0, len = keyedRemovalList.length; i < len; i++) {
+            var elToRemove = fromNodesLookup[keyedRemovalList[i]];
+            if (elToRemove) {
+              removeNode(elToRemove, elToRemove.parentNode, false);
+            }
+          }
+        }
+      }
+      if (!childrenOnly && morphedNode !== fromNode && fromNode.parentNode) {
+        if (morphedNode.actualize) {
+          morphedNode = morphedNode.actualize(fromNode.ownerDocument || doc);
+        }
+        fromNode.parentNode.replaceChild(morphedNode, fromNode);
+      }
+      return morphedNode;
     };
   }
-  var be = me(ue);
-  var Y = be;
-  function Q(e, a) {
-    if (e.nodeName === "SCRIPT" && a.nodeName === "SCRIPT") {
-      let t = document.createElement("script");
-      return [...a.attributes].forEach((n) => {
-        t.setAttribute(n.nodeName, n.nodeValue);
-      }), t.text = a.text, e.replaceWith(t), false;
+  var morphdom = morphdomFactory(morphAttrs);
+  var morphdom_esm_default = morphdom;
+  function onBeforeElUpdated(fromEl, toEl) {
+    if (fromEl.nodeName === "SCRIPT" && toEl.nodeName === "SCRIPT") {
+      const script = document.createElement("script");
+      [...toEl.attributes].forEach((attr) => {
+        script.setAttribute(attr.nodeName, attr.nodeValue);
+      });
+      script.text = toEl.text;
+      fromEl.replaceWith(script);
+      return false;
     }
     return true;
   }
-  function Z(e) {
-    if (e.nodeName === "SCRIPT") {
-      var a = document.createElement("script");
-      [...e.attributes].forEach((t) => {
-        a.setAttribute(t.nodeName, t.nodeValue);
-      }), a.text = e.text, e.replaceWith(a);
+  function onNodeAdded(node) {
+    if (node.nodeName === "SCRIPT") {
+      var script = document.createElement("script");
+      [...node.attributes].forEach((attr) => {
+        script.setAttribute(attr.nodeName, attr.nodeValue);
+      });
+      script.text = node.text;
+      node.replaceWith(script);
     }
   }
-  var te;
-  var N;
-  var Ne;
-  var ee;
-  function Ce(e) {
-    return te = e.app, N = e.JsRequest, Ne = e.JsResponse, { pageLoaded: Re, start: xe };
+  var wasmApp;
+  var JsRequest2;
+  var JsResponse2;
+  var hasRegisteredDocumentEvents;
+  function create(options) {
+    wasmApp = options.app;
+    JsRequest2 = options.JsRequest;
+    JsResponse2 = options.JsResponse;
+    return {
+      pageLoaded,
+      start: loadCurrentPage
+    };
   }
-  async function R(e) {
-    let a = await te(e);
-    if (a.status_code === "302") {
-      let t = `${window.location.origin}${a.headers.location}`;
-      return R(new N(t, "GET"));
+  async function makeRequest(jsRequest) {
+    const jsResponse = await wasmApp(jsRequest);
+    if (jsResponse.status_code === "302") {
+      const url = `${window.location.origin}${jsResponse.headers["location"]}`;
+      return makeRequest(new JsRequest2(url, "GET"));
     }
-    Y(document.documentElement, a.body, { onBeforeElUpdated: Q, onNodeAdded: Z });
+    morphdom_esm_default(document.documentElement, jsResponse.body, {
+      onBeforeElUpdated,
+      onNodeAdded
+    });
   }
-  async function Se(e) {
-    let a = e.target.href, t = window.location.origin;
-    if (e.target.tagName === "A" && a.startsWith(t)) {
-      e.preventDefault();
-      let n = a.replace(t, "");
-      history.pushState(void 0, void 0, n), await R(new N(a, "GET"));
+  async function documentClickHandler(event) {
+    const href = event.target.href;
+    const origin = window.location.origin;
+    if (event.target.tagName === "A" && href.startsWith(origin)) {
+      event.preventDefault();
+      const url = href.replace(origin, "");
+      history.pushState(void 0, void 0, url);
+      await makeRequest(new JsRequest2(href, "GET"));
     }
-    e.target.tagName === "BUTTON" && e.target.type === "submit" || e.preventDefault();
+    if (event.target.tagName === "BUTTON" && event.target.type === "submit") {
+      return;
+    }
+    event.preventDefault();
   }
-  function we(e) {
-    let a = new FormData(e.target), t = new URLSearchParams(a).toString(), n = e.target.action, r = e.target.method, s = new N(n, r);
-    s.body = t, s.headers_append("Content-Type", e.target.encoding), R(s), e.preventDefault();
+  function formSubmitHandler(event) {
+    const formData = new FormData(event.target);
+    const bodyEncoded = new URLSearchParams(formData).toString();
+    const url = event.target.action;
+    const method = event.target.method;
+    const jsRequest = new JsRequest2(url, method);
+    jsRequest.body = bodyEncoded;
+    jsRequest.headers_append("Content-Type", event.target.encoding);
+    makeRequest(jsRequest);
+    event.preventDefault();
   }
-  function ye() {
-    let e = new N(window.location.href, "GET");
-    R(e);
+  function handleBackNavigation() {
+    const jsRequest = new JsRequest2(window.location.href, "GET");
+    makeRequest(jsRequest);
   }
-  function Re() {
-    ee || (document.addEventListener("click", Se), window.addEventListener("popstate", ye), ee = true), document.querySelectorAll("form").forEach((e) => e.addEventListener("submit", we));
+  function pageLoaded() {
+    if (!hasRegisteredDocumentEvents) {
+      document.addEventListener("click", documentClickHandler);
+      window.addEventListener("popstate", handleBackNavigation);
+      hasRegisteredDocumentEvents = true;
+    }
+    document.querySelectorAll("form").forEach((form) => form.addEventListener("submit", formSubmitHandler));
   }
-  async function xe() {
-    let e = new N(window.location.href, "GET");
-    await R(e);
+  async function loadCurrentPage() {
+    const jsRequest = new JsRequest2(window.location.href, "GET");
+    await makeRequest(jsRequest);
   }
 
   // src/index.js
   (async () => {
     const url = new URL("/dist/wasm/notes_demo_spa_bg.wasm", window.location.href);
     await notes_demo_spa_default(url);
-    window.roraAdapter = Ce({
+    window.roraAdapter = create({
       app,
       JsRequest,
       JsResponse

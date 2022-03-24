@@ -349,6 +349,14 @@ export class JsRequest {
         }
     }
     /**
+    * @param {string} body
+    */
+    set body(body) {
+        var ptr0 = passStringToWasm0(body, wasm.__wbindgen_malloc, wasm.__wbindgen_realloc);
+        var len0 = WASM_VECTOR_LEN;
+        wasm.jsrequest_set_body(this.ptr, ptr0, len0);
+    }
+    /**
     * @returns {any}
     */
     get headers() {
@@ -772,11 +780,11 @@ async function init(input) {
         var ret = Promise.resolve(getObject(arg0));
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper404 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper402 = function(arg0, arg1, arg2) {
         var ret = makeMutClosure(arg0, arg1, 17, __wbg_adapter_26);
         return addHeapObject(ret);
     };
-    imports.wbg.__wbindgen_closure_wrapper2623 = function(arg0, arg1, arg2) {
+    imports.wbg.__wbindgen_closure_wrapper2626 = function(arg0, arg1, arg2) {
         var ret = makeMutClosure(arg0, arg1, 76, __wbg_adapter_29);
         return addHeapObject(ret);
     };
