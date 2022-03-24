@@ -1,9 +1,9 @@
-import {default as wasmbin} from '../wasm-out/notes_demo_spa_bg.wasm';
-import init, {app, JsRequest, JsResponse} from '../wasm-out/notes_demo_spa';
+import init, {app, JsRequest, JsResponse} from '../dist/wasm/notes_demo_spa.js'
 import * as jsAdapter from "@rora/javascript-adapter"
 
 (async () => {
-    await init(wasmbin);
+    const url = new URL('dist/wasm/notes_demo_spa_bg.wasm', window.location.href);
+    await init(url);
 
     window.roraAdapter = jsAdapter.create({
         app,
