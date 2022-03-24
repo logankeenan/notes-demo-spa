@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": ". ./scripts/debug.sh && node esbuild.config.js",
-    "build:wasm:release": ". ./scripts/release.sh",
-    "build:release": ". ./scripts/release.sh && node esbuild.config.js",
-    "dev": "basic-http-server & cargo-watch -w ./src -s 'npm run build'",
+    "build:dev": ". ./scripts/debug.sh && npm run build:js",
+    "build:js": "esbuild src/index.js --bundle --outfile=dist/bundle.js",
+    "build:release": ". ./scripts/release.sh && npm run build:js",
+    "dev": "basic-http-server & cargo-watch -w ./src -s 'npm run build:dev'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
