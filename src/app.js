@@ -16,6 +16,10 @@ export async function makeRequest(jsRequest) {
 
     if (jsResponse.status_code === "302") {
         const url = `${window.location.origin}${jsResponse.headers["location"]}`;
+
+        const urlLocal = url.replace(origin, "");
+        history.pushState(undefined, undefined, urlLocal);
+
         return makeRequest(new JsRequest(url, "GET"));
     }
     morphdom(document.documentElement, jsResponse.body, {

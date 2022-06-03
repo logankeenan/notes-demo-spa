@@ -4,10 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:dev": ". ./scripts/debug.sh && npm run build:js",
-    "build:js": "esbuild src/index.js --bundle --outfile=dist/bundle.js",
-    "build:release": ". ./scripts/release.sh && npm run build:js",
-    "dev": "basic-http-server & cargo-watch -w ./src -s 'npm run build:dev'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,9 +16,6 @@
     "url": "https://github.com/rora-rs/notes-demo-spa/issues"
   },
   "homepage": "https://github.com/rora-rs/notes-demo-spa#readme",
-  "devDependencies": {
-    "esbuild": "^0.14.21"
-  },
   "dependencies": {
     "@rora/javascript-adapter": "^0.0.4",
     "es-module-shims": "^1.5.5",
