@@ -18,8 +18,8 @@
 <script type="module">
     import init, {JsRequest} from '../dist/wasm/notes_demo_spa.js'
     import {initialize as javaScriptAdapterInitialize} from "@rora/javascript-adapter"
-    import {onAnchorClicked, onFormSubmission, onPopState} from "./src/browser-event-handlers.js";
-    import {makeRequest} from "./src/app.js";
+    import {onAnchorClicked, onFormSubmission, onPopState} from "/src/browser-event-handlers.js";
+    import {makeRequest} from "/src/app.js";
 
     (async () => {
         const url = new URL('/dist/wasm/notes_demo_spa_bg.wasm', window.location.href);
