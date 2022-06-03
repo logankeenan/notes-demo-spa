@@ -33,8 +33,15 @@ impl<State: Clone + Send + Sync + 'static> Middleware<State> for HtmlInjection {
 }
 
 const HTML_INJECTION: &str = r#"
-<script>
-window.roraAdapter.pageLoaded();
+<script type="module">
+    import {initialize as javaScriptAdapterInitialize} from "@rora/javascript-adapter"
+    import {onAnchorClicked, onFormSubmission, onPopState} from "/src/browser-event-handlers.js";
+
+    javaScriptAdapterInitialize({
+            onAnchorClicked,
+            onFormSubmission,
+            onPopState
+        });
 </script>
 "#;
 
