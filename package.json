@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "@rora/javascript-adapter": "^0.0.4",
+    "es-module-shims": "^1.5.5",
     "morphdom": "^2.6.1"
   }
 }
