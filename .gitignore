@@ -1,5 +1,4 @@
 /target
-Cargo.lock
 wasm-out
 node_modules
 .env

@@ -24,6 +24,7 @@
     "esbuild": "^0.14.21"
   },
   "dependencies": {
-    "@rora/javascript-adapter": "^0.0.3"
+    "@rora/javascript-adapter": "^0.0.4",
+    "morphdom": "^2.6.1"
   }
 }

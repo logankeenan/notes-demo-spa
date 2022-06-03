@@ -6,5 +6,34 @@
 </head>
 <body>
 </body>
-<script src="/dist/bundle.js"></script>
+<script async src="https://ga.jspm.io/npm:es-module-shims@1.5.5/dist/es-module-shims.js"></script>
+<script type="importmap">
+{
+  "imports": {
+    "@rora/javascript-adapter": "/node_modules/@rora/javascript-adapter/dist/index.js",
+    "morphdom": "/node_modules/morphdom/dist/morphdom-esm.js"
+  }
+}
+</script>
+<script type="module">
+    import init, {JsRequest} from '../dist/wasm/notes_demo_spa.js'
+    import {initialize as javaScriptAdapterInitialize} from "@rora/javascript-adapter"
+    import {onAnchorClicked, onFormSubmission, onPopState} from "./src/browser-event-handlers.js";
+    import {makeRequest} from "./src/app.js";
+
+    (async () => {
+        const url = new URL('/dist/wasm/notes_demo_spa_bg.wasm', window.location.href);
+        await init(url);
+
+        javaScriptAdapterInitialize({
+            onAnchorClicked,
+            onFormSubmission,
+            onPopState
+        });
+
+        const jsRequest = new JsRequest(window.location.href, "GET");
+        await makeRequest(jsRequest);
+    })();
+
+</script>
 </html>
