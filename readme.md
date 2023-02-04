@@ -5,3 +5,14 @@ code lives in [notes-demo](https://github.com/rora-rs/notes-demo) and this repos
 _run_ the app in the browser.
 
 Try the [demo](https://notes-demo-spa.pages.dev/).
+
+
+Local Development
+* `rustup target add wasm32-unknown-unknown`
+* `cargo install -f wasm-bindgen-cli@0.2.79`
+* `cargo install basic-http-server`
+* `cp .env.sample .env`
+* fill out the details in the .env file
+* `. ./scripts/debug.sh`
+* `basic-http-server`
+* visit `http://localhost:4000`
