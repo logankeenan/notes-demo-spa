@@ -139,7 +139,6 @@ export interface InitOutput {
   readonly jsrequest_headers_append: (a: number, b: number, c: number, d: number, e: number) => void;
   readonly __wbg_jsresponse_free: (a: number) => void;
   readonly jsresponse_new: () => number;
-  readonly jsresponse_status_code: (a: number, b: number) => void;
   readonly jsresponse_body: (a: number, b: number) => void;
   readonly jsresponse_headers: (a: number) => number;
   readonly __wbg_minifyconfig_free: (a: number) => void;
@@ -149,13 +148,14 @@ export interface InitOutput {
   readonly __wbg_set_minifyconfig_html: (a: number, b: number) => void;
   readonly __wbg_get_minifyconfig_css: (a: number) => number;
   readonly __wbg_set_minifyconfig_css: (a: number, b: number) => void;
+  readonly jsresponse_status_code: (a: number, b: number) => void;
   readonly __wbindgen_malloc: (a: number) => number;
   readonly __wbindgen_realloc: (a: number, b: number, c: number) => number;
   readonly __wbindgen_export_2: WebAssembly.Table;
-  readonly _dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h1bfb4720384f141d: (a: number, b: number) => void;
-  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h0c31640ab24c8b1e: (a: number, b: number, c: number) => void;
+  readonly _dyn_core__ops__function__FnMut_____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__he50a24efe62a76ac: (a: number, b: number) => void;
+  readonly _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__hd89f1dce54cc8e72: (a: number, b: number, c: number) => void;
   readonly __wbindgen_exn_store: (a: number) => void;
-  readonly wasm_bindgen__convert__closures__invoke2_mut__hc7a0caf85c95e028: (a: number, b: number, c: number, d: number) => void;
+  readonly wasm_bindgen__convert__closures__invoke2_mut__h3d84d85f2f4900b3: (a: number, b: number, c: number, d: number) => void;
   readonly __wbindgen_add_to_stack_pointer: (a: number) => number;
   readonly __wbindgen_free: (a: number, b: number) => void;
 }
